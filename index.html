@@ -8,11 +8,7 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;700&family=Orbitron:wght@500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-<!-- Flag Icons CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css">
-    <!-- Font Awesome for globe icon -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">    
-<style>
+    <style>
         :root {
             --primary: #00f0ff;
             --secondary: #ff00e4;
@@ -46,6 +42,10 @@
             align-items: center;
             padding: 20px;
             overflow-x: hidden;
+        }
+
+        body[dir="rtl"] {
+            font-family: 'Tahoma', sans-serif;
         }
 
         header {
@@ -155,6 +155,10 @@
             width: 100%;
         }
 
+        body[dir="rtl"] .input-group {
+            flex-direction: row-reverse;
+        }
+
         input {
             flex: 1;
             padding: 14px 20px;
@@ -165,6 +169,10 @@
             color: white;
             border: 1px solid rgba(0, 240, 255, 0.3);
             transition: all 0.3s;
+        }
+
+        body[dir="rtl"] input {
+            text-align: right;
         }
 
         input:focus {
@@ -336,6 +344,10 @@
             transition: all 0.3s;
         }
 
+        body[dir="rtl"] .player-item {
+            flex-direction: row-reverse;
+        }
+
         .player-item.current-turn {
             background: rgba(0, 240, 255, 0.1);
             border-left: 3px solid var(--primary);
@@ -397,6 +409,10 @@
             flex-wrap: wrap;
         }
 
+        body[dir="rtl"] .level-selector {
+            flex-direction: row-reverse;
+        }
+
         .level-btn {
             padding: 10px 15px;
             font-size: 14px;
@@ -424,6 +440,11 @@
             margin-left: 20px;
         }
 
+        body[dir="rtl"] .language-selector {
+            margin-left: 0;
+            margin-right: 20px;
+        }
+
         .language-btn {
             background: transparent;
             border: none;
@@ -432,17 +453,32 @@
             cursor: pointer;
             transition: all 0.3s;
             opacity: 0.7;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            padding: 5px 10px;
+            border-radius: 8px;
         }
 
         .language-btn:hover {
             opacity: 1;
             transform: scale(1.1);
+            background: rgba(0, 240, 255, 0.1);
         }
 
         .language-btn.active {
             opacity: 1;
             color: var(--secondary);
             text-shadow: 0 0 10px rgba(255, 0, 228, 0.5);
+            background: rgba(0, 240, 255, 0.1);
+        }
+
+        .flag-icon {
+            width: 20px;
+            height: 15px;
+            object-fit: cover;
+            border-radius: 2px;
+            box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
         }
 
         footer {
@@ -459,6 +495,10 @@
             }
             
             .input-group {
+                flex-direction: column;
+            }
+            
+            body[dir="rtl"] .input-group {
                 flex-direction: column;
             }
             
@@ -488,75 +528,25 @@
             }
             
             .language-selector {
-            position: relative;
-            display: inline-block;
-            background: var(--bg-color);
-            border-radius: 8px;
-            box-shadow: var(--shadow);
-            padding: 8px;
-        }
-
-        .language-btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            background: none;
-            border: none;
-            padding: 10px 15px;
-            margin: 0 2px;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            color: var(--text-color);
-            font-weight: 500;
-        }
-
-        .language-btn:hover {
-            background-color: rgba(66, 133, 244, 0.1);
-            color: var(--primary-color);
-        }
-
-        .language-btn.active {
-            background-color: var(--primary-color);
-            color: white;
-        }
-
-        .language-btn i {
-            margin-right: 8px;
-            font-size: 16px;
-        }
-
-        .flag-icon {
-            margin-right: 5px;
-            border-radius: 2px;
-            box-shadow: 0 0 1px rgba(0, 0, 0, 0.2);
-        }
-
-        .language-btn.active .flag-icon {
-            box-shadow: 0 0 2px white;
-        }
-
-        /* Tooltip style */
-        .language-btn::after {
-            content: attr(title);
-            position: absolute;
-            bottom: -40px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #333;
-            color: white;
-            padding: 5px 10px;
-            border-radius: 4px;
-            font-size: 12px;
-            opacity: 0;
-            transition: opacity 0.3s;
-            pointer-events: none;
-            white-space: nowrap;
-        }
-
-        .language-btn:hover::after {
-            opacity: 1;
-        
+                margin-left: 10px;
+                margin-right: 0;
+                gap: 8px;
+            }
+            
+            body[dir="rtl"] .language-selector {
+                margin-right: 10px;
+                margin-left: 0;
+            }
+            
+            .language-btn {
+                font-size: 16px;
+                padding: 5px 8px;
+            }
+            
+            .flag-icon {
+                width: 16px;
+                height: 12px;
+            }
         }
     </style>
 </head>
@@ -565,19 +555,23 @@
         <div class="logo">Sexy Position</div>
         <div style="display: flex; align-items: center;">
             <div class="language-selector">
-        <button class="language-btn active" data-lang="en" title="English">
-           
-            <span class="flag-icon flag-icon-gb"></span>
-        </button>
-        <button class="language-btn" data-lang="fr" title="Français">
-          
-            <span class="flag-icon flag-icon-fr"></span>
-        </button>
-        <button class="language-btn" data-lang="es" title="Español">
-           
-            <span class="flag-icon flag-icon-es"></span>
-        </button>
-    </div>
+                <button class="language-btn active" data-lang="en" title="English">
+                    <img src="https://flagcdn.com/w20/gb.png" class="flag-icon" alt="English">
+                    <span>EN</span>
+                </button>
+                <button class="language-btn" data-lang="fr" title="Français">
+                    <img src="https://flagcdn.com/w20/fr.png" class="flag-icon" alt="Français">
+                    <span>FR</span>
+                </button>
+                <button class="language-btn" data-lang="es" title="Español">
+                    <img src="https://flagcdn.com/w20/es.png" class="flag-icon" alt="Español">
+                    <span>ES</span>
+                </button>
+                <button class="language-btn" data-lang="ar" title="العربية">
+                    <img src="https://flagcdn.com/w20/ma.png" class="flag-icon" alt="العربية">
+                    <span>MR<</span>
+                </button>
+            </div>
             <div class="player-info">
                 <div class="player-name" id="player-name-display"></div>
                 <div class="player-role hidden" id="player-role-display"></div>
@@ -590,33 +584,40 @@
             <h2 data-lang="en">Welcome to the Game</h2>
             <h2 data-lang="fr" class="hidden">Bienvenue dans le jeu</h2>
             <h2 data-lang="es" class="hidden">Bienvenido al juego</h2>
+            <h2 data-lang="ar" class="hidden">مرحبًا بك في اللعبة</h2>
             
             <p data-lang="en">Create a new game or join an existing one to start playing with your friends!</p>
             <p data-lang="fr" class="hidden">Créez une nouvelle partie ou rejoignez-en une existante pour commencer à jouer avec vos amis !</p>
             <p data-lang="es" class="hidden">¡Crea un nuevo juego o únete a uno existente para comenzar a jugar con tus amigos!</p>
+            <p data-lang="ar" class="hidden">أنشئ لعبة جديدة أو انضم إلى لعبة موجودة للبدء في اللعب مع أصدقائك!</p>
             
             <div class="game-controls">
                 <div class="input-group">
                     <input type="text" id="player-name" placeholder="Your name" data-lang="en" required>
                     <input type="text" id="player-name-fr" placeholder="Votre nom" data-lang="fr" class="hidden" required>
                     <input type="text" id="player-name-es" placeholder="Tu nombre" data-lang="es" class="hidden" required>
+                    <input type="text" id="player-name-ar" placeholder="اسمك" data-lang="ar" class="hidden" required>
                 </div>
                 
                 <button id="new-game-btn" data-lang="en">CREATE GAME</button>
                 <button id="new-game-btn-fr" data-lang="fr" class="hidden">CRÉER UNE PARTIE</button>
                 <button id="new-game-btn-es" data-lang="es" class="hidden">CREAR JUEGO</button>
+                <button id="new-game-btn-ar" data-lang="ar" class="hidden">إنشاء لعبة</button>
                 
                 <button class="secondary" id="join-game-btn" data-lang="en">JOIN GAME</button>
                 <button class="secondary" id="join-game-btn-fr" data-lang="fr" class="hidden">REJOINDRE</button>
                 <button class="secondary" id="join-game-btn-es" data-lang="es" class="hidden">UNIRSE</button>
+                <button class="secondary" id="join-game-btn-ar" data-lang="ar" class="hidden">انضم للعبة</button>
                 
                 <div class="input-group hidden" id="join-game-inputs">
                     <input type="text" id="game-id" placeholder="Enter Game ID" data-lang="en">
                     <input type="text" id="game-id-fr" placeholder="Entrez l'ID du jeu" data-lang="fr" class="hidden">
                     <input type="text" id="game-id-es" placeholder="Ingresa el ID del juego" data-lang="es" class="hidden">
+                    <input type="text" id="game-id-ar" placeholder="أدخل معرف اللعبة" data-lang="ar" class="hidden">
                     <button id="confirm-join-btn" data-lang="en">JOIN</button>
                     <button id="confirm-join-btn-fr" data-lang="fr" class="hidden">REJOINDRE</button>
                     <button id="confirm-join-btn-es" data-lang="es" class="hidden">UNIRSE</button>
+                    <button id="confirm-join-btn-ar" data-lang="ar" class="hidden">انضم</button>
                 </div>
             </div>
         </div>
@@ -625,12 +626,25 @@
             <h2 data-lang="en">Game ID: <span class="game-id-display" id="game-id-display"></span></h2>
             <h2 data-lang="fr" class="hidden">ID du jeu: <span class="game-id-display" id="game-id-display-fr"></span></h2>
             <h2 data-lang="es" class="hidden">ID del juego: <span class="game-id-display" id="game-id-display-es"></span></h2>
+            <h2 data-lang="ar" class="hidden">معرف اللعبة: <span class="game-id-display" id="game-id-display-ar"></span></h2>
             
             <div class="level-selector">
-                <button class="level-btn active" data-level="1">Level 1</button>
-                <button class="level-btn" data-level="2">Level 2</button>
-                <button class="level-btn" data-level="3">Level 3</button>
-                <button class="level-btn" data-level="4">Level 4</button>
+                <button class="level-btn active" data-level="1" data-lang="en">Level 1</button>
+                <button class="level-btn active" data-level="1" data-lang="fr" class="hidden">Niveau 1</button>
+                <button class="level-btn active" data-level="1" data-lang="es" class="hidden">Nivel 1</button>
+                <button class="level-btn active" data-level="1" data-lang="ar" class="hidden">المستوى 1</button>
+                <button class="level-btn" data-level="2" data-lang="en">Level 2</button>
+                <button class="level-btn" data-level="2" data-lang="fr" class="hidden">Niveau 2</button>
+                <button class="level-btn" data-level="2" data-lang="es" class="hidden">Nivel 2</button>
+                <button class="level-btn" data-level="2" data-lang="ar" class="hidden">المستوى 2</button>
+                <button class="level-btn" data-level="3" data-lang="en">Level 3</button>
+                <button class="level-btn" data-level="3" data-lang="fr" class="hidden">Niveau 3</button>
+                <button class="level-btn" data-level="3" data-lang="es" class="hidden">Nivel 3</button>
+                <button class="level-btn" data-level="3" data-lang="ar" class="hidden">المستوى 3</button>
+                <button class="level-btn" data-level="4" data-lang="en">Level 4</button>
+                <button class="level-btn" data-level="4" data-lang="fr" class="hidden">Niveau 4</button>
+                <button class="level-btn" data-level="4" data-lang="es" class="hidden">Nivel 4</button>
+                <button class="level-btn" data-level="4" data-lang="ar" class="hidden">المستوى 4</button>
             </div>
             
             <div class="dice-arena">
@@ -648,12 +662,14 @@
                 <button id="roll-dice-btn" data-lang="en">ROLL DICE</button>
                 <button id="roll-dice-btn-fr" data-lang="fr" class="hidden">LANCER LE DÉ</button>
                 <button id="roll-dice-btn-es" data-lang="es" class="hidden">TIRAR DADO</button>
+                <button id="roll-dice-btn-ar" data-lang="ar" class="hidden">رمي النرد</button>
             </div>
             
             <div class="game-info">
                 <h3 data-lang="en">PLAYERS</h3>
                 <h3 data-lang="fr" class="hidden">JOUEURS</h3>
                 <h3 data-lang="es" class="hidden">JUGADORES</h3>
+                <h3 data-lang="ar" class="hidden">اللاعبون</h3>
                 <div class="players-list" id="players-list"></div>
             </div>
             
@@ -662,9 +678,10 @@
     </div>
     
     <footer>
-        <p data-lang="en">© 2025 By khorzi</p>
-        <p data-lang="fr" class="hidden">© 2025 Par khorzi</p>
-        <p data-lang="es" class="hidden">© 2025 Por khorzi</p>
+        <p data-lang="en">© 2025 By NABIL</p>
+        <p data-lang="fr" class="hidden">© 2025 Par NABIL</p>
+        <p data-lang="es" class="hidden">© 2025 Por NABIL</p>
+        <p data-lang="ar" class="hidden">© 2025 بواسطة نبيل</p>
     </footer>
 
     <script>
@@ -702,25 +719,32 @@
         const playerNameInput = document.getElementById('player-name');
         const playerNameInputFr = document.getElementById('player-name-fr');
         const playerNameInputEs = document.getElementById('player-name-es');
+        const playerNameInputAr = document.getElementById('player-name-ar');
         const gameIdInput = document.getElementById('game-id');
         const gameIdInputFr = document.getElementById('game-id-fr');
         const gameIdInputEs = document.getElementById('game-id-es');
+        const gameIdInputAr = document.getElementById('game-id-ar');
         const joinGameInputs = document.getElementById('join-game-inputs');
         const newGameBtn = document.getElementById('new-game-btn');
         const newGameBtnFr = document.getElementById('new-game-btn-fr');
         const newGameBtnEs = document.getElementById('new-game-btn-es');
+        const newGameBtnAr = document.getElementById('new-game-btn-ar');
         const joinGameBtn = document.getElementById('join-game-btn');
         const joinGameBtnFr = document.getElementById('join-game-btn-fr');
         const joinGameBtnEs = document.getElementById('join-game-btn-es');
+        const joinGameBtnAr = document.getElementById('join-game-btn-ar');
         const confirmJoinBtn = document.getElementById('confirm-join-btn');
         const confirmJoinBtnFr = document.getElementById('confirm-join-btn-fr');
         const confirmJoinBtnEs = document.getElementById('confirm-join-btn-es');
+        const confirmJoinBtnAr = document.getElementById('confirm-join-btn-ar');
         const rollDiceBtn = document.getElementById('roll-dice-btn');
         const rollDiceBtnFr = document.getElementById('roll-dice-btn-fr');
         const rollDiceBtnEs = document.getElementById('roll-dice-btn-es');
+        const rollDiceBtnAr = document.getElementById('roll-dice-btn-ar');
         const gameIdDisplay = document.getElementById('game-id-display');
         const gameIdDisplayFr = document.getElementById('game-id-display-fr');
         const gameIdDisplayEs = document.getElementById('game-id-display-es');
+        const gameIdDisplayAr = document.getElementById('game-id-display-ar');
         const playersList = document.getElementById('players-list');
         const statusMessage = document.getElementById('status-message');
         const playerNameDisplay = document.getElementById('player-name-display');
@@ -733,20 +757,28 @@
         newGameBtn.addEventListener('click', createNewGame);
         newGameBtnFr.addEventListener('click', createNewGame);
         newGameBtnEs.addEventListener('click', createNewGame);
+        newGameBtnAr.addEventListener('click', createNewGame);
         joinGameBtn.addEventListener('click', showJoinGameInputs);
         joinGameBtnFr.addEventListener('click', showJoinGameInputs);
         joinGameBtnEs.addEventListener('click', showJoinGameInputs);
+        joinGameBtnAr.addEventListener('click', showJoinGameInputs);
         confirmJoinBtn.addEventListener('click', joinExistingGame);
         confirmJoinBtnFr.addEventListener('click', joinExistingGame);
         confirmJoinBtnEs.addEventListener('click', joinExistingGame);
+        confirmJoinBtnAr.addEventListener('click', joinExistingGame);
         rollDiceBtn.addEventListener('click', rollDice);
         rollDiceBtnFr.addEventListener('click', rollDice);
         rollDiceBtnEs.addEventListener('click', rollDice);
+        rollDiceBtnAr.addEventListener('click', rollDice);
         
         // Add event listeners to level buttons
         levelButtons.forEach(button => {
             button.addEventListener('click', () => {
-                levelButtons.forEach(btn => btn.classList.remove('active'));
+                levelButtons.forEach(btn => {
+                    if (btn.dataset.level === button.dataset.level) {
+                        btn.classList.remove('active');
+                    }
+                });
                 button.classList.add('active');
                 currentImageSet = parseInt(button.dataset.level);
                 switchDiceImages(currentImageSet);
@@ -772,6 +804,13 @@
                 }
             });
             
+            // Set document direction for RTL languages
+            if (lang === 'ar') {
+                document.body.setAttribute('dir', 'rtl');
+            } else {
+                document.body.setAttribute('dir', 'ltr');
+            }
+            
             // Show/hide language-specific elements
             document.querySelectorAll('[data-lang]').forEach(el => {
                 if (el.dataset.lang === lang) {
@@ -786,6 +825,7 @@
                 gameIdDisplay.textContent = currentGameId;
                 gameIdDisplayFr.textContent = currentGameId;
                 gameIdDisplayEs.textContent = currentGameId;
+                gameIdDisplayAr.textContent = currentGameId;
             }
         }
 
@@ -796,6 +836,8 @@
                 playerName = playerNameInputFr.value.trim();
             } else if (currentLanguage === 'es') {
                 playerName = playerNameInputEs.value.trim();
+            } else if (currentLanguage === 'ar') {
+                playerName = playerNameInputAr.value.trim();
             } else {
                 playerName = playerNameInput.value.trim();
             }
@@ -812,11 +854,14 @@
                 joinGameBtnFr.disabled = true;
             } else if (currentLanguage === 'es') {
                 joinGameBtnEs.disabled = true;
+            } else if (currentLanguage === 'ar') {
+                joinGameBtnAr.disabled = true;
             }
             
             playerNameInput.disabled = true;
             playerNameInputFr.disabled = true;
             playerNameInputEs.disabled = true;
+            playerNameInputAr.disabled = true;
         }
 
         // Create a new game
@@ -826,6 +871,8 @@
                 playerName = playerNameInputFr.value.trim();
             } else if (currentLanguage === 'es') {
                 playerName = playerNameInputEs.value.trim();
+            } else if (currentLanguage === 'ar') {
+                playerName = playerNameInputAr.value.trim();
             } else {
                 playerName = playerNameInput.value.trim();
             }
@@ -880,6 +927,8 @@
                 playerName = playerNameInputFr.value.trim();
             } else if (currentLanguage === 'es') {
                 playerName = playerNameInputEs.value.trim();
+            } else if (currentLanguage === 'ar') {
+                playerName = playerNameInputAr.value.trim();
             } else {
                 playerName = playerNameInput.value.trim();
             }
@@ -889,6 +938,8 @@
                 gameId = gameIdInputFr.value.trim().toUpperCase();
             } else if (currentLanguage === 'es') {
                 gameId = gameIdInputEs.value.trim().toUpperCase();
+            } else if (currentLanguage === 'ar') {
+                gameId = gameIdInputAr.value.trim().toUpperCase();
             } else {
                 gameId = gameIdInput.value.trim().toUpperCase();
             }
@@ -941,6 +992,7 @@
             gameIdDisplay.textContent = currentGameId;
             gameIdDisplayFr.textContent = currentGameId;
             gameIdDisplayEs.textContent = currentGameId;
+            gameIdDisplayAr.textContent = currentGameId;
             
             playerNameDisplay.textContent = playerName;
             
@@ -1090,6 +1142,8 @@
                     rollDiceBtnFr.disabled = false;
                 } else if (currentLanguage === 'es') {
                     rollDiceBtnEs.disabled = false;
+                } else if (currentLanguage === 'ar') {
+                    rollDiceBtnAr.disabled = false;
                 } else {
                     rollDiceBtn.disabled = false;
                 }
@@ -1106,6 +1160,7 @@
                 rollDiceBtn.disabled = true;
                 rollDiceBtnFr.disabled = true;
                 rollDiceBtnEs.disabled = true;
+                rollDiceBtnAr.disabled = true;
                 
                 // Remove continuous rotation from dice
                 dice.classList.remove('attention');
@@ -1129,6 +1184,8 @@
                 rollDiceBtnFr.disabled = true;
             } else if (currentLanguage === 'es') {
                 rollDiceBtnEs.disabled = true;
+            } else if (currentLanguage === 'ar') {
+                rollDiceBtnAr.disabled = true;
             } else {
                 rollDiceBtn.disabled = true;
             }
@@ -1194,6 +1251,8 @@
                         rollDiceBtnFr.disabled = false;
                     } else if (currentLanguage === 'es') {
                         rollDiceBtnEs.disabled = false;
+                    } else if (currentLanguage === 'ar') {
+                        rollDiceBtnAr.disabled = false;
                     } else {
                         rollDiceBtn.disabled = false;
                     }
@@ -1278,67 +1337,80 @@
                 'Please enter your name': {
                     'en': 'Please enter your name',
                     'fr': 'Veuillez entrer votre nom',
-                    'es': 'Por favor ingresa tu nombre'
+                    'es': 'Por favor ingresa tu nombre',
+                    'ar': 'الرجاء إدخال اسمك'
                 },
                 'Please enter a valid 6-character Game ID': {
                     'en': 'Please enter a valid 6-character Game ID',
                     'fr': 'Veuillez entrer un ID de jeu valide de 6 caractères',
-                    'es': 'Por favor ingresa un ID de juego válido de 6 caracteres'
+                    'es': 'Por favor ingresa un ID de juego válido de 6 caracteres',
+                    'ar': 'الرجاء إدخال معرف لعبة صالح مكون من 6 أحرف'
                 },
                 'Game not found': {
                     'en': 'Game not found',
                     'fr': 'Jeu non trouvé',
-                    'es': 'Juego no encontrado'
+                    'es': 'Juego no encontrado',
+                    'ar': 'اللعبة غير موجودة'
                 },
                 'Game created! You are the Leader. Share the Game ID with others.': {
                     'en': 'Game created! You are the Leader. Share the Game ID with others.',
                     'fr': 'Jeu créé ! Vous êtes le Leader. Partagez l\'ID du jeu avec les autres.',
-                    'es': '¡Juego creado! Eres el Líder. Comparte el ID del juego con los demás.'
+                    'es': '¡Juego creado! Eres el Líder. Comparte el ID del juego con los demás.',
+                    'ar': 'تم إنشاء اللعبة! أنت القائد. شارك معرف اللعبة مع الآخرين.'
                 },
                 'Error creating game: ': {
                     'en': 'Error creating game: ',
                     'fr': 'Erreur lors de la création du jeu : ',
-                    'es': 'Error al crear el juego: '
+                    'es': 'Error al crear el juego: ',
+                    'ar': 'خطأ في إنشاء اللعبة: '
                 },
                 'You have joined the game! Awaiting role assignment.': {
                     'en': 'You have joined the game! Awaiting role assignment.',
                     'fr': 'Vous avez rejoint le jeu ! En attente d\'attribution de rôle.',
-                    'es': '¡Te has unido al juego! Esperando asignación de roles.'
+                    'es': '¡Te has unido al juego! Esperando asignación de roles.',
+                    'ar': 'لقد انضممت إلى اللعبة! في انتظار تعيين الأدوار.'
                 },
                 'Error joining game: ': {
                     'en': 'Error joining game: ',
                     'fr': 'Erreur lors de la connexion au jeu : ',
-                    'es': 'Error al unirse al juego: '
+                    'es': 'Error al unirse al juego: ',
+                    'ar': 'خطأ في الانضمام إلى اللعبة: '
                 },
                 'Your turn to roll the dice!': {
                     'en': 'Your turn to roll the dice!',
                     'fr': 'À votre tour de lancer le dé !',
-                    'es': '¡Tu turno de tirar el dado!'
+                    'es': '¡Tu turno de tirar el dado!',
+                    'ar': 'دورك لرمي النرد!'
                 },
                 'Waiting for': {
                     'en': 'Waiting for',
                     'fr': 'En attente de',
-                    'es': 'Esperando a'
+                    'es': 'Esperando a',
+                    'ar': 'في انتظار'
                 },
                 'to roll...': {
                     'en': 'to roll...',
                     'fr': 'pour lancer...',
-                    'es': 'para tirar...'
+                    'es': 'para tirar...',
+                    'ar': 'للرمي...'
                 },
                 'Error rolling dice: ': {
                     'en': 'Error rolling dice: ',
                     'fr': 'Erreur lors du lancer de dé : ',
-                    'es': 'Error al tirar el dado: '
+                    'es': 'Error al tirar el dado: ',
+                    'ar': 'خطأ في رمي النرد: '
                 },
                 'rolled a': {
                     'en': 'rolled a',
                     'fr': 'a lancé un',
-                    'es': 'tiró un'
+                    'es': 'tiró un',
+                    'ar': 'رمى'
                 },
                 'You rolled a': {
                     'en': 'You rolled a',
                     'fr': 'Vous avez lancé un',
-                    'es': 'Tiraste un'
+                    'es': 'Tiraste un',
+                    'ar': 'لقد رميت'
                 }
             };
             
